@@ -1,0 +1,1 @@
+This folder will contain all, all assets required locally that is
