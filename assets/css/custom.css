@@ -1,0 +1,110 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --maincolor: rgb(135, 250, 231);
+    --white: #fff;
+}
+
+body {
+    background-color: var(--maincolor);
+}
+
+main.home_main {
+    padding-top: 54px;
+    height: 100vh;
+}
+
+.row>.content {
+    padding: 0 25px;
+    margin-top: 10px;
+}
+
+card-body>ul {
+    list-style: none;
+}
+
+/* Acount pages styles */
+
+#logreg-forms {
+    width: 412px;
+    margin: 10vh auto;
+    background-color: #f3f3f3;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
+#logreg-forms form {
+    width: 100%;
+    max-width: 410px;
+    padding: 15px;
+    margin: auto;
+}
+
+#logreg-forms .form-control {
+    box-sizing: border-box;
+    font-size: 16px;
+    margin: 0 15px;
+}
+
+.form-row>.course .form-control {
+    margin: 0 -1px !important;
+}
+
+.form-signup>.row .form-check {
+    position: relative;
+    display: block;
+    padding-left: 35px;
+}
+
+#logreg-forms .form-reset, #logreg-forms .form-signup {
+    display: none;
+}
+
+#logreg-forms .form-signup input {
+    margin-bottom: 2px;
+}
+
+/* Mobile */
+
+@media screen and (max-width:500px) {
+    #logreg-forms {
+        width: 300px;
+    }
+}
+
+/* dashboard */
+
+.form-control-primary {
+    margin: 10px;
+    opacity: 0.2;
+    border-radius: 2px;
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 100;
+    padding: 70px 0 0 10px;
+    border-right: 1px solid #d3d3d3;
+}
+
+.left-sidebar {
+    position: sticky;
+    top: 0;
+    height: calc(100vh - 70px)
+}
+
+.sidebar-nav li .nav-link {
+    color: #333;
+    font-weight: 500;
+}
+
+.dash-main {
+    padding-top: 90px;
+}

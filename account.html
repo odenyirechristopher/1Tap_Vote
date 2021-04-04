@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/css/custom.css" />
+    <script src="./assets/js/jquery.js"></script>
+    <script src="./assets/js/bootstrap.js"></script>
+    <script src="./assets/js/popper.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid account">
+        <div id="logreg-forms">
+            <div class="row justify-content-md-center">
+                <div class="alert alert-success alert-dismissible" id="success" style="display: none">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                </div>
+                <div class="alert alert-danger alert-dismissible" id="error" style="display: none">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                </div>
+            </div>
+            <form class="form-signin">
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">
+                    Sign in
+                </h1>
+                <div class="row mt-2">
+                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required
+                        autofocus="" />
+                </div>
+                <div class="row mt-2">
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required />
+                </div>
+                <button class="btn btn-success btn-block mt-2" type="submit"> Sign in</button>
+                <a href="#" id="forgot_pswd" class="text-center text-danger">Forgot password?</a>
+                <hr />
+                <!-- creating account -->
+                <button class="btn btn-primary btn-block" type="button" id="btn-signup"> Sign up New Account
+                </button>
+            </form>
+
+            <form action="/reset/password/" class="form-reset">
+                <div class="row mt-2">
+                    <input type="email" id="resetEmail" class="form-control" placeholder="Email address" required=""
+                        autofocus="" />
+                </div>
+
+                <button class="btn btn-primary btn-block mt-2" type="submit">
+                    Reset Password
+                </button>
+                <a href="#" id="cancel_reset"> Back</a>
+            </form>
+
+            <form action="/signup/" class="form-signup">
+                <div class="row">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="gender" value="M">Male
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="gender" value="F">Female
+                        </label>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <input type="text" id="firstname" class="form-control" placeholder="Firstname" required=""
+                        autofocus="" />
+                </div>
+                <div class="row mt-2">
+                    <input type="text" id="lastname" class="form-control" placeholder="Lastname" required=""
+                        autofocus="" />
+                </div>
+                <div class="row mt-2">
+                    <input type="text" id="surname" class="form-control" placeholder="Surname" required=""
+                        autofocus="" />
+                </div>
+                <div class="form-row mt-2">
+                    <div class="form-group col-md-6 course">
+                        <select id="inputState" class="form-control">
+                            <option selected>School</option>
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6 course">
+                        <select id="inputState" class="form-control">
+                            <option selected>Course</option>
+                            <option></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <input type="email" id="user-email" class="form-control" placeholder="Email address" required
+                        autofocus="" />
+                </div>
+                <div class="row mt-2">
+                    <input type="password" id="user-pass" class="form-control" placeholder="Password" required
+                        autofocus="" />
+                </div>
+                <div class="row mt-2">
+                    <input type="password" id="user-repeatpass" class="form-control" placeholder="Confirm Password"
+                        required autofocus="" />
+                </div>
+
+                
+                <button class="btn btn-primary btn-block mt-2" type="submit">
+                    Sign Up
+                </button>
+                <a href="#" id="cancel_signup"><i class="fas fa-angle-left"></i> Back</a>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

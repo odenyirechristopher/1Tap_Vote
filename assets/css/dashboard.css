@@ -1,0 +1,168 @@
+ body {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     font-family: monospace;
+     font-size: 15px;
+     background-color: rgba(163, 230, 221, 0.377);
+ }
+
+ .grid-container {
+     display: grid;
+     grid-template-columns: 1fr;
+     grid-template-rows: 50px 1fr 50px;
+     grid-template-areas: 'header' 'main';
+     /* height: 100vh; */
+ }
+
+ .header {
+     grid-area: header;
+     background-color: whitesmoke;
+     border-bottom: 1px solid yellow;
+ }
+
+ .aside {
+     grid-area: aside;
+     background-color: #28a745;
+     border-right: 1px solid yellow;
+     height: 100vh;
+     position: fixed;
+ }
+
+ .main {
+     grid-area: main;
+     padding: 0 40px;
+ }
+
+ .client {
+     padding: 0 40px;
+ }
+
+ /* flexing header and footer*/
+
+ .header {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     color: darkblue;
+     padding: 0 15px;
+ }
+
+ /* flexing aside */
+
+ .aside {
+     display: flex;
+     flex-direction: column;
+     height: 100%;
+     width: 240px;
+     position: fixed;
+     overflow-y: auto;
+     z-index: 2;
+     transform: translateX(-245px);
+ }
+
+ .aside.active {
+     transform: translateX(0);
+ }
+
+ .aside_list {
+     padding: 0;
+     margin-top: 85px;
+     list-style-type: none;
+ }
+
+ .aside_list-item {
+     padding: 20px 20px 20px 40px;
+     color: #fff;
+ }
+
+ .aside_list-item>.subitem {
+     display: none;
+ }
+
+ .aside_list-item:hover {
+     background-color: rgb(9, 209, 182);
+     cursor: pointer;
+ }
+
+ a.links {
+     text-decoration: none;
+ }
+
+ /* Layout for main content overview  and its cards*/
+
+ .main_overview {
+     display: flex;
+     flex-wrap: wrap;
+     align-items: center;
+     margin: 20px 5px;
+ }
+
+ /* responsive layout */
+
+ @media only screen and (min-width: 750px) {
+     .grid-container {
+         display: grid;
+         grid-template-columns: 240px 1fr;
+         grid-template-rows: 50px 1fr 50px;
+         grid-template-areas: 'aside header' 'aside main' 'aside footer';
+         height: 100vh;
+     }
+     .aside {
+         display: flex;
+         flex-direction: column;
+         position: relative;
+         transform: translateX(0);
+     }
+ }
+
+ .menu-icon {
+     position: fixed;
+     display: flex;
+     top: 2px;
+     left: 8px;
+     align-items: center;
+     justify-content: center;
+     z-index: 1;
+     cursor: pointer;
+     padding: 12px;
+     color: black;
+ }
+
+ .header_search {
+     margin-left: 24px;
+ }
+
+ .aside_close-icon {
+     position: absolute;
+     visibility: visible;
+     top: 20px;
+     right: 20px;
+     cursor: pointer;
+ }
+
+ @media only screen and (min-width: 750px) {
+     .aside_close-icon {
+         display: none;
+     }
+ }
+
+ ul.subitem {
+     list-style: none;
+ }
+
+ /* style links */
+
+ a {
+     text-decoration: none;
+ }
+
+ /* Navigation home */
+
+ @media only screen and (min-width: 768px) {
+     .flex {
+         display: flex;
+         align-items: center;
+         flex-wrap: wrap;
+     }
+ }
