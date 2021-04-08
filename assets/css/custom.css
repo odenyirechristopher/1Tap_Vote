@@ -37,45 +37,6 @@ card-body>ul {
     transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
 }
 
-#logreg-forms form {
-    width: 100%;
-    max-width: 410px;
-    padding: 15px;
-    margin: auto;
-}
-
-#logreg-forms .form-control {
-    box-sizing: border-box;
-    font-size: 16px;
-    margin: 0 15px;
-}
-
-.form-row>.course .form-control {
-    margin: 0 -1px !important;
-}
-
-.form-signup>.row .form-check {
-    position: relative;
-    display: block;
-    padding-left: 35px;
-}
-
-#logreg-forms .form-reset, #logreg-forms .form-signup {
-    display: none;
-}
-
-#logreg-forms .form-signup input {
-    margin-bottom: 2px;
-}
-
-/* Mobile */
-
-@media screen and (max-width:500px) {
-    #logreg-forms {
-        width: 300px;
-    }
-}
-
 /* dashboard */
 
 .form-control-primary {
@@ -107,4 +68,102 @@ card-body>ul {
 
 .dash-main {
     padding-top: 90px;
+}
+
+img.btn.btn-sm.btn-white.d-table.mx-auto.mt-4 {
+    height: 85px;
+    width: 95px;
+    border-radius: 50%;
+    border: 1px solid yellow;
+}
+
+.menu-icon {
+    position: fixed;
+    display: flex;
+    top: 2px;
+    left: 54px;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    cursor: pointer;
+    padding: 12px;
+    color: black;
+}
+
+.aside_close-icon {
+    position: absolute;
+    visibility: visible;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.form-check {
+    position: relative;
+    display: block;
+    padding-left: 33px;
+}
+
+/* voter card */
+
+.candidate-card {
+    flex-direction: row;
+    align-items: center;
+    height: 150px;
+}
+
+.candidate-title {
+    font-weight: bold;
+}
+
+.candidate-card img {
+    width: 30%;
+    padding-left: 20px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: calc(0.25rem - 1px);
+}
+
+button.btn.btn-warning.btn-block.vote-btn {
+    width: 25%;
+}
+
+@media (max-width:767.98px) {
+    .dash-main {
+        padding-top: 140px;
+    }
+}
+
+@media only screen and (min-width: 750px) {
+    .aside_close-icon {
+        display: none;
+    }
+}
+
+/* hiding some readonly vie input on small screens */
+
+/* @media only screen and (max-width: 768px) {
+    .gender, .course {
+        display: none;
+    }
+} */
+
+@media only screen and (max-width: 768px) {
+    button.btn.btn-warning.btn-block.vote-btn {
+        width: 100%;
+    }
+    .candidate-body {
+        padding: 0.5em 1.2em;
+    }
+    .candidate-body .candidate-text {
+        margin: 0;
+    }
+    .candidate-card img {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .candidate-card img {
+        width: 40%;
+    }
 }

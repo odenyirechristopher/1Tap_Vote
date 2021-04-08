@@ -1,5 +1,6 @@
 <?php
 include ("./../../database/config.php");
+include('./../include/voter_check.php');
 ?>
 <!DOCTYPE html>
 
@@ -17,7 +18,7 @@ include('./../include/nav.php');
         <div class="row">
             <!-- Sidear -->
             <?php
-             include('./../include/sidebar_admin.php')
+             include('./../include/sidebar_voter.php')
            ?>
             <!-- Sidebar -->
         </div>
@@ -54,6 +55,8 @@ include('./../include/nav.php');
 
                 </div>
             </div>
+            
+
         </main>
     </div>
     <script src="./../../assets/js/pwdChange.js"></script>

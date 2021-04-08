@@ -1,5 +1,6 @@
 <?php
 include ("./../../database/config.php");
+include('./../include/voter_check.php');
 ?>
 <!DOCTYPE html>
 
@@ -17,7 +18,7 @@ include('./../include/nav.php');
         <div class="row">
             <!-- Sidear -->
             <?php
-             include('./../include/sidebar_admin.php')
+             include('./../include/sidebar_voter.php')
            ?>
             <!-- Sidebar -->
         </div>
@@ -30,10 +31,7 @@ include('./../include/nav.php');
 
             <div class="card mt-2">
                 <div class="card-header">
-                    Hello,Steve
-                </div>
-                <div class="card-body">
-                    <h4 class="text-center">voting session settings</h4>
+                    Hello <?php echo ''.$_SESSION['fname'].'!';?>
                 </div>
             </div>
             

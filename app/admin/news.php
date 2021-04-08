@@ -1,3 +1,7 @@
+<?php
+include ("./../../database/config.php");
+include ("./../../api/news.php");
+?>
 <!DOCTYPE html>
 
 <html>
@@ -26,12 +30,12 @@ include('./../include/nav.php');
             <!-- cards -->
             <!-- modal button -->
             <div class="card-body mt-2">
-                <button class="btn btn-light btn-sm float-right" data-toggle="modal" data-target="#newsModal">Add
+                <button class="btn btn-light btn-sm float-right" data-toggle="modal" data-target="#newsModal" id="add_button">Add
                     Event</button>
             </div>
             <br>
             <div class="table-responsive ">
-                <table class="table ">
+                <table class="table table-sm">
                     <thead class="table-light">
                         <tr>
                             <th scope="col">#</th>
@@ -43,25 +47,21 @@ include('./../include/nav.php');
                         </tr>
                     </thead>
                     <tbody>
-
+                        <?php
+                          get_news($conn);
+                        ?>
                     </tbody>
                 </table>
             </div>
         </main>
         <!-- News modal -->
-        <div id="newsModal" class="modal" role="dialog">
+        <div id="newsModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <form action="" method="post" id="news_form">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <?php
-                            $update='true'; //remove
-                             if ($update == false) {
-                                echo '<h4 class="modal-title">Add Event</h4>';
-                            } else {
-                                echo '<h4 class="modal-title">Update Event</h4>';
-                            }
-                           ?>
+                            <h4 class="modal-title"></h4>
+                           
                             <button type="button" class="close" data-dismiss="modal">
                                 &times;
                             </button>
@@ -88,7 +88,7 @@ include('./../include/nav.php');
                              <div class="form-group row">
                                 <div class="col-sm-12">
                                     <label for="event_date" class="control-label">Date:</label>
-                                    <input type="date" class="form-control" name="event_date" id="event_date">
+                                    <input type="date" class="form-control" name="event_date" id="event_date"  min="<?php echo date("Y-m-d"); ?>">
                                 </div>
                             </div>
                              <div class="form-group row">
@@ -101,13 +101,9 @@ include('./../include/nav.php');
                             
                         </div>
                         <div class="modal-footer">
-                            <?php
-                            if ($update == true) {
-                                echo '<button type="submit" class="btn btn-success btn-sm" name="update">Update</button>';
-                            } else {
-                            echo '<button type="submit" class="btn btn-success btn-sm" name="add">Add</button>';
-                            }
-                            ?>
+                            <button type="submit" class="btn btn-success btn-sm" name="update"
+                                id="update">Update</button>
+                            <button type="submit" class="btn btn-success btn-sm" name="add" id="add">Add</button>
                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
                                 Close
                             </button>
@@ -116,8 +112,90 @@ include('./../include/nav.php');
                 </form>
             </div>
         </div>
-        <!-- Docket modal -->
+        <!-- News modal -->
     </div>
+     <script>
+    $(document).ready(function() {
+        $("#add_button").click(function() {
+            $("#news_form")[0].reset();
+            $("#newsModal").modal("show");
+            $(".modal-title").text("Add Event");
+            $("#update").hide();
+            $("#add").show();
+        });
+
+        //add news
+        $(document).on("submit", "#news_form", function(event) {
+            event.preventDefault();
+            
+            var event = $('#event_name').val().trim();
+            var date = $('#event_date').val();
+            var venue = $('#event_venue').val().trim();
+            
+            if (event != "" &&  venue != "" && date != "") {
+                $.ajax({
+                    url: "./../../api/news.php",
+                    type: "POST",
+                    data: {
+                        request: 1,
+                        event: event,
+                        date: date,
+                        venue:venue,
+                    },
+                    cache: false,
+                    success: function(dataResult) {
+                        var dataResult = JSON.parse(dataResult);
+                        console.log(dataResult);
+                        if (dataResult.statusCode == 200) {
+                            $("#add").removeAttr("disabled");
+                            $('#news_form')[0].reset();
+                            $("#success").show();
+                            $("#success").html('Event added').delay(3000).fadeOut(3000);
+                            location.reload();
+                        } else if (dataResult.statusCode == 201) {
+                            $("#error").show();
+                            $("#error").html('Event exist!').delay(3000).fadeOut(3000);
+
+                        }
+                    }
+                });
+            } else {
+                $("#error").show();
+                $("#error").html('Please fill all required fields!').delay(3000).fadeOut(3000);
+                $("#add").removeAttr("disabled");
+
+
+            }
+        });
+
+        //delete news
+        $(document).on("click", ".delete", function() {
+            var id = $(this).data("id");
+
+            var deleteAction = confirm("Are you sure?");
+            if (deleteAction == true) {
+                $.ajax({
+                    url: "./../../api/news.php",
+                    type: "post",
+                    cache: false,
+                    data: {
+                        request: 4,
+                        event_id: id
+                    },
+                    success: function(dataResult) {
+                        var dataResult = JSON.parse(dataResult);
+                        if (dataResult.statusCode == 200) {
+                            location.reload();
+
+                        }
+                    }
+
+                });
+
+            }
+        });
+    });
+    </script>
     <script src="./../../assets/js/popper.min.js"></script>
 </body>
 

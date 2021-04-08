@@ -1,3 +1,7 @@
+<?php
+include ("./../../database/config.php");
+include ("./../../api/candidate.php");
+?>
 <!DOCTYPE html>
 
 <html>
@@ -40,12 +44,62 @@ include('./../include/nav.php');
                         </tr>
                     </thead>
                     <tbody>
-
+                        <?php
+                        get_candidate($conn);
+                        ?>
                     </tbody>
                 </table>
             </div>
         </main>
     </div>
+    <script>
+    $(document).ready(function() {
+        //delete candidate
+        $(document).on("click", ".delete", function() {
+            var id = $(this).data("id");
+            console.log(id);
+
+            var deleteAction = confirm("Are you sure?");
+            if (deleteAction == true) {
+                $.ajax({
+                    url: "./../../api/candidate.php",
+                    type: "post",
+                    cache: false,
+                    data: {
+                        request: 4,
+                        candidate_id: id
+                    },
+                    success: function(dataResult) {
+                        var dataResult = JSON.parse(dataResult);
+                        if (dataResult.statusCode == 200) {
+                            location.reload();
+
+                        }
+                    }
+
+                });
+
+            }
+        });
+    });
+
+    function candidate_status(val, candidate_id) {
+        $.ajax({
+            type: 'POST',
+            url: './../../api/candidate.php',
+            data: {
+                request: 5,
+                val: val,
+                candidate_id: candidate_id
+            },
+            success: function(dataResult) {
+                if (dataResult.statusCode == 200) {
+                    location.reload();
+                }
+            }
+        });
+    }
+    </script>
     <script src="./../../assets/js/popper.min.js"></script>
 </body>
 

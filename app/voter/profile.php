@@ -1,5 +1,6 @@
 <?php
 include ("./../../database/config.php");
+include('./../include/voter_check.php');
 ?>
 <!DOCTYPE html>
 
@@ -17,7 +18,7 @@ include('./../include/nav.php');
         <div class="row">
             <!-- Sidear -->
             <?php
-             include('./../include/sidebar_admin.php')
+             include('./../include/sidebar_voter.php')
            ?>
             <!-- Sidebar -->
         </div>
@@ -27,6 +28,7 @@ include('./../include/nav.php');
              include('./../include/card_admin.php')
             ?>
             <!-- cards -->
+
             <div class="card mt-2">
                 <form action="#" class="py-4">
 
@@ -35,28 +37,39 @@ include('./../include/nav.php');
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="firstName">First Name</label>
-                                    <input type="text" class="form-control" id="firstName" >
+                                    <input type="text" class="form-control" id="firstName" readonly>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="lastName">Last Name</label>
-                                    <input type="text" class="form-control" id="lastName" >
+                                    <input type="text" class="form-control" id="lastName" readonly>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="emailAddress">Email</label>
-                                    <input type="email" class="form-control" id="emailAddress">
+                                    <input type="email" class="form-control" id="emailAddress" readonly>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="userProfile">Avatar</label>
                                     <input type="file" class="form-control" id="userProfile" required>
                                 </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="emailAddress">Course</label>
+                                    <input type="email" class="form-control" id="emailAddress" readonly>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="emailAddress">Gender</label>
+                                    <input type="email" class="form-control" id="emailAddress" readonly>
+                                </div>
+
                             </div>
                         </div>
                         <div class="col-lg-4">
-                            
+
                             <div class="edit-user-details__avatar m-auto">
-                                <img src="./../uploads/avatar.png" class="btn btn-sm btn-white d-table mx-auto mt-4" alt="User Avatar">
+                                <img src="./../uploads/avatar.png" class="btn btn-sm btn-white d-table mx-auto mt-4"
+                                    alt="User Avatar">
                             </div>
                             <button type="submit" class="btn btn-sm btn-white d-table mx-auto mt-4">
                                 Update Profile</button>
@@ -64,10 +77,9 @@ include('./../include/nav.php');
                     </div>
                 </form>
             </div>
-
         </main>
     </div>
-    <script src="./../../assets/js/popper.min.js"></script>
+    <script src="./../../assets/js/sidebar.js"></script>
 </body>
 
 </html>
