@@ -83,8 +83,9 @@ include('./../include/nav.php');
 
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success btn-sm" name="update"
-                                id="update">Update</button>
+                            <input type="hidden" id="txt_groupid" name="txt_groupid" value="0" />
+                            <input type="button" class="btn btn-success btn-sm update" name="update" id="update"
+                                value="Update"></input>
                             <button type="submit" class="btn btn-success btn-sm" name="add" id="add">Add</button>
                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
                                 Close
@@ -105,12 +106,18 @@ include('./../include/nav.php');
             $("#update").hide();
             $("#add").show();
         });
-
+        $(".editbtn").click(function() {
+            $("#school_form")[0].reset();
+            $("#schoolModal").modal("show");
+            $(".modal-title").text("Edit school");
+            $("#update").show();
+            $("#add").hide();
+        });
 
         //add school
         $(document).on("submit", "#school_form", function(event) {
             event.preventDefault();
-            
+
             var school = $('#school_name').val().trim();
             if (school != "") {
                 $.ajax({
@@ -147,27 +154,20 @@ include('./../include/nav.php');
         });
 
         //update school
-        $(document).on("click", ".update", function() {
+        $(document).on("click", ".editbtn", function() {
             var id = $(this).data("id");
-
+            $(txt_groupid).val(id);
             $.ajax({
                 url: "./../../api/school.php",
                 type: "post",
                 data: {
-                    request: 3,
+                    request: 2,
                     school_id: id
                 },
                 dataType: "json",
                 success: function(dataResult) {
-                    //var dataResult = JSON.parse(dataResult);
                     if (dataResult.statusCode == 200) {
-                        alert("crazy");
-                        $("#schoolModal").modal("show");
-                        $(".modal-title").text("Edit school");
-                        $("#update").show();
-                        $("#add").hide();
-                        $("#school_name").val(dataResult.data.school_name);
-                        location.reload();
+                        $('#school_name').val(dataResult.data.school_name);
                     } else {
                         alert("Invalid ID");
                     }
@@ -175,6 +175,39 @@ include('./../include/nav.php');
 
             })
         })
+
+        //save update
+        $("#update").click(function() {
+             var id = $("#txt_groupid").val();
+            var name = $("#school_name").val().trim();
+            
+            if (name != "") {
+                $.ajax({
+                    url: "./../../api/school.php",
+                    type: "post",
+                    data: {
+                        request: 3,
+                        school_id: id,
+                        school_name: name,
+                    },
+                    dataType: "json",
+                    success: function(dataResult) {
+                        if (dataResult.statusCode == 200) {
+                            $("#success").show();
+                            $("#success").html('School updated!!').delay(3000).fadeOut(
+                            3000);
+                            location.reload();
+                        } else {
+                            $("#error").show();
+                            $("#error").html('Error!').delay(3000).fadeOut(3000);
+                        }
+
+                    },
+                });
+            } else {
+                alert("Please fill all fields.");
+            }
+        });
 
         // delete school
         $(document).on("click", ".delete", function() {

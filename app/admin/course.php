@@ -112,8 +112,9 @@ include('./../include/nav.php');
 
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success btn-sm" name="update"
-                                id="update">Update</button>
+                            <input type="hidden" id="txt_courseid" name="txt_groupid" value="0" />
+                            <input type="button" class="btn btn-success btn-sm update" name="update" id="update"
+                                value="Update"></input>
                             <button type="submit" class="btn btn-success btn-sm" name="add" id="add">Add</button>
                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
                                 Close
@@ -133,6 +134,13 @@ include('./../include/nav.php');
             $(".modal-title").text("Add course");
             $("#update").hide();
             $("#add").show();
+        });
+        $(".editbtn").click(function() {
+            $("#course_form")[0].reset();
+            $("#courseModal").modal("show");
+            $(".modal-title").text("Edit Course");
+            $("#update").show();
+            $("#add").hide();
         });
 
         // add course
@@ -177,6 +185,66 @@ include('./../include/nav.php');
             }
 
         });
+
+         //update course
+        $(document).on("click", ".editbtn", function() {
+            var id = $(this).data("id");
+            $(txt_courseid).val(id);
+            $.ajax({
+                url: "./../../api/course.php",
+                type: "post",
+                data: {
+                    request: 2,
+                    course_id: id
+                },
+                dataType: "json",
+                success: function(dataResult) {
+                    if (dataResult.statusCode == 200) {
+                        $('#school').val(dataResult.data.school_name);
+                        $('#course_name').val(dataResult.data.course_name);
+                    } else {
+                        alert("Invalid ID");
+                    }
+                }
+
+            })
+        })
+
+        //save update
+        $("#update").click(function() {
+             var id = $("#txt_courseid").val();
+            var name = $("#course_name").val().trim();
+            var school = $("#school").val();
+            
+            if (name != "" && school!= "") {
+                $.ajax({
+                    url: "./../../api/course.php",
+                    type: "post",
+                    data: {
+                        request: 3,
+                        course_id: id,
+                        course_name: name,
+                        school_id:school,
+                    },
+                    dataType: "json",
+                    success: function(dataResult) {
+                        if (dataResult.statusCode == 200) {
+                            $("#success").show();
+                            $("#success").html('Course updated!!').delay(3000).fadeOut(
+                            3000);
+                            location.reload();
+                        } else {
+                            $("#error").show();
+                            $("#error").html('Error!').delay(3000).fadeOut(3000);
+                        }
+
+                    },
+                });
+            } else {
+                alert("Please fill all fields.");
+            }
+        });
+
 
         //delete course
         $(document).on("click", ".delete", function() {

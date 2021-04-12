@@ -83,11 +83,64 @@ data-backdrop="static" data-target="#docketModal" data-id='.$row['docket_id'].' 
     }
 }
 
+// Fetch  details
+if($request == 2){
+   $id = 0;
+
+   if(isset($_POST['docket_id'])){
+      $id = mysqli_escape_string($conn,$_POST['docket_id']);
+   }
+
+   $record = mysqli_query($conn,"SELECT * FROM docket WHERE docket_id=".$id);
+
+   $dataResult = array();
+
+   if(mysqli_num_rows($record) > 0){
+      $row = mysqli_fetch_assoc($record);
+      $dataResult = array(
+         "docket_name"=>$row['docket_name'],
+         "global"=>$row['is_global'],
+      );
+
+      echo json_encode( array("statusCode" => 200,"data" => $dataResult) );
+      exit;
+   }else{
+      echo json_encode( array("statusCode" => 201) );
+      exit;
+   }
+}
+
 
 //update docket
 if($request == 3){
+$id = 0;
 
+   if(isset($_POST['docket_id'])){
+      $id = mysqli_escape_string($conn,$_POST['docket_id']);
+   }
+
+   // Check id
+   $record = mysqli_query($conn,"SELECT docket_id FROM docket WHERE docket_id=".$id);
+   if(mysqli_num_rows($record) > 0){
+ 
+      $name = mysqli_escape_string($conn,trim($_POST['docket_name']));
+      $global = mysqli_escape_string($conn,trim($_POST['is_global']));
+
+      if( $name != '' && $global != ""){
+
+         mysqli_query($conn,"UPDATE docket SET docket_name='".$name."', is_global='".$global."' WHERE docket_id=".$id);
+
+         echo json_encode( array("statusCode" => 200,"message" => "Record updated.") );
+         exit;
+      }else{
+         echo json_encode( array("statusCode" => 201,"message" => "Please fill all fields.") );
+         exit;
+      }
+
+   }
 }
+
+
 //delete docket
 if($request == 4){
 $id=mysqli_real_escape_string($conn,$_POST['docket_id']);

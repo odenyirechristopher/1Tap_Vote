@@ -74,10 +74,73 @@ data-backdrop="static" data-target="#docketModal" data-id='.$row['voter_id'].' d
     }
 }
 
-// update voter
-if($request == 3){
+// Fetch 
+if($request == 2){
+   $id = 0;
 
+   if(isset($_POST['voter_id'])){
+      $id = mysqli_escape_string($conn,$_POST['voter_id']);
+   }
+
+   $record = mysqli_query($conn,"SELECT v.voter_id,v.surname,v.firstname,v.lastname,v.gender,v.email,c.course_name,s.school_name FROM Voter as v JOIN course c on v.course_id = c.course_id JOIN school s ON c.school_id = s.school_id WHERE voter_id=".$id);
+
+   $dataResult = array();
+
+   if(mysqli_num_rows($record) > 0){
+      $row = mysqli_fetch_assoc($record);
+      $dataResult = array(
+         "fname"=>$row['firstname'],
+         "lname"=>$row['lastname'],
+         "sname"=>$row['surname'],
+         "email"=>$row['email'],
+         "school"=>$row['school_name'],
+         "course"=>$row['course_name'],
+         "gender"=>$row['gender'],
+      );
+
+      echo json_encode( array("statusCode" => 200,"data" => $dataResult) );
+      exit;
+   }else{
+      echo json_encode( array("statusCode" => 201) );
+      exit;
+   }
 }
+
+
+//update 
+if($request == 3){
+$id = 0;
+
+   if(isset($_POST['voter_id'])){
+      $id = mysqli_escape_string($conn,$_POST['voter_id']);
+   }
+
+   // Check id
+   $record = mysqli_query($conn,"SELECT voter_id FROM Voter WHERE voter_id=".$id);
+   if(mysqli_num_rows($record) > 0){
+
+    $first = mysqli_real_escape_string($conn,trim($_POST['firstname']));
+    $last = mysqli_real_escape_string($conn,trim($_POST['lastname']));
+    $sur = mysqli_real_escape_string($conn,trim($_POST['surname']));
+    $mail = mysqli_real_escape_string($conn,trim($_POST['email']));
+    $course = mysqli_real_escape_string($conn,trim($_POST['course_id']));
+    $gender = mysqli_real_escape_string($conn,trim($_POST['gender']));
+ 
+   if( $first != '' && $last != "" && $sur != '' && $mail != '' && $course != '' && $gender != ''){
+
+         mysqli_query($conn,"UPDATE Voter SET firstname='".$first."',lastname='".$last."',surname='".$sur."',
+         email='".$mail."',course_id='".$course."',gender='".$gender."'  WHERE voter_id=".$id);
+
+         echo json_encode( array("statusCode" => 200,"message" => "Record updated.") );
+         exit;
+      }else{
+         echo json_encode( array("statusCode" => 201,"message" => "Please fill all fields.") );
+         exit;
+      }
+
+   }
+}
+
 // delete voter
 if($request == 4){
 $id=mysqli_real_escape_string($conn,$_POST['voter_id']);

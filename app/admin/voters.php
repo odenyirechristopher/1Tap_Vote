@@ -30,7 +30,8 @@ include('./../include/nav.php');
             <!-- cards -->
             <!-- modal button -->
             <div class="card-body mt-2">
-                <button class="btn btn-light btn-sm float-right" id="add_button" data-toggle="modal" data-target="#voterModal">Add
+                <button class="btn btn-light btn-sm float-right" id="add_button" data-toggle="modal"
+                    data-target="#voterModal">Add
                     Voter</button>
             </div>
             <br>
@@ -61,8 +62,8 @@ include('./../include/nav.php');
                 <form action="" method="post" id="voter_form">
                     <div class="modal-content">
                         <div class="modal-header">
-                           
-                             <h4 class="modal-title"></h4>
+
+                            <h4 class="modal-title"></h4>
 
                             <button type="button" class="close" data-dismiss="modal">
                                 &times;
@@ -131,20 +132,23 @@ include('./../include/nav.php');
                             <div class="form-group row">
                                 <div class="form-check gender">
                                     <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="gender" id="gender" value="Male">Male
+                                        <input type="radio" class="form-check-input" name="gender" id="gender"
+                                            value="Male">Male
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="gender" id="gender" value="Female">Female
+                                        <input type="radio" class="form-check-input" name="gender" id="gender"
+                                            value="Female">Female
                                     </label>
                                 </div>
                             </div>
 
                         </div>
                         <div class="modal-footer">
-                           <button type="submit" class="btn btn-success btn-sm" name="update"
-                                id="update">Update</button>
+                            <input type="hidden" id="txt_voterid" name="txt_voterid" value="0" />
+                            <input type="button" class="btn btn-success btn-sm update" name="update" id="update"
+                                value="Update"></input>
                             <button type="submit" class="btn btn-success btn-sm" name="add" id="add">Add</button>
                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
                                 Close
@@ -165,6 +169,13 @@ include('./../include/nav.php');
             $("#update").hide();
             $("#add").show();
         });
+        $(".editbtn").click(function() {
+            $("#voter_form")[0].reset();
+            $("#voterModal").modal("show");
+            $(".modal-title").text("Edit voter");
+            $("#update").show();
+            $("#add").hide();
+        });
 
         $("#school").change(function() {
             var id = $(this).val();
@@ -174,19 +185,19 @@ include('./../include/nav.php');
                 url: './../../api/voter.php',
                 type: 'post',
                 data: {
-                    request:7,
+                    request: 7,
                     school_id: id
                 },
                 dataType: 'json',
                 success: function(dataResult) {
-                    
+
                     var len = dataResult.length;
 
                     $("#sel_course").empty();
                     for (let j = 0; j < len; j++) {
                         var id = dataResult[j]['course_id'];
                         var name = dataResult[j]['course_name'];
-                         
+
                         $("#sel_course").append("<option value='" + id + "'>" + name +
                             "</option>");
 
@@ -205,10 +216,10 @@ include('./../include/nav.php');
             var mail = $('#email').val().trim();
             var course = $('#sel_course').val();
             var gender = $('#gender:checked').val();
-            
 
-            if (first != "" && last != "" &&  sur != "" && mail!= "" &&
-               course != "") {
+
+            if (first != "" && last != "" && sur != "" && mail != "" &&
+                course != "") {
                 $.ajax({
                     url: "./../../api/voter.php",
                     type: "POST",
@@ -216,9 +227,9 @@ include('./../include/nav.php');
                         request: 1,
                         firstname: first,
                         lastname: last,
-                        surname:sur,
-                        email:mail,
-                        course_id:course,
+                        surname: sur,
+                        email: mail,
+                        course_id: course,
                         gender: gender,
                     },
                     cache: false,
@@ -246,6 +257,79 @@ include('./../include/nav.php');
 
             }
         });
+
+        //update
+        $(document).on("click", ".editbtn", function() {
+            var id = $(this).data("id");
+            $(txt_voterid).val(id);
+            $.ajax({
+                url: "./../../api/voter.php",
+                type: "post",
+                data: {
+                    request: 2,
+                    voter_id: id
+                },
+                dataType: "json",
+                success: function(dataResult) {
+                    if (dataResult.statusCode == 200) {
+                        $('#firstname').val(dataResult.data.fname);
+                        $('#lastname').val(dataResult.data.lname);
+                        $('#surname').val(dataResult.data.sname);
+                        $('#email').val(dataResult.data.email);
+                        $('#course').val(dataResult.data.course);
+                        $('#gender').val(dataResult.data.gender);
+                    } else {
+                        alert("Invalid ID");
+                    }
+                }
+
+            })
+        })
+
+        //save update
+        $("#update").click(function() {
+            var id = $("#txt_voterid").val();
+            var first = $('#firstname').val().trim();
+            var last = $('#lastname').val().trim();
+            var sur = $('#surname').val().trim();
+            var mail = $('#email').val().trim();
+            var course = $('#sel_course').val();
+            var gender = $('#gender:checked').val();
+
+            if (first != "" && last != "" && sur != "" && mail != "" &&
+                course != "") {
+                $.ajax({
+                    url: "./../../api/voter.php",
+                    type: "post",
+                    data: {
+                        request: 3,
+                        voter_id:id,
+                        firstname: first,
+                        lastname: last,
+                        surname: sur,
+                        email: mail,
+                        course_id: course,
+                        gender: gender,
+                    },
+                    dataType: "json",
+                    success: function(dataResult) {
+                        if (dataResult.statusCode == 200) {
+                            $("#success").show();
+                            $("#success").html('School updated!!').delay(3000).fadeOut(
+                                3000);
+                            location.reload();
+                        } else {
+                            $("#error").show();
+                            $("#error").html('Error!').delay(3000).fadeOut(3000);
+                        }
+
+                    },
+                });
+            } else {
+                alert("Please fill all fields.");
+            }
+        });
+
 
         //delete voter
         $(document).on("click", ".delete", function() {

@@ -101,8 +101,9 @@ include('./../include/nav.php');
                             
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success btn-sm" name="update"
-                                id="update">Update</button>
+                            <input type="hidden" id="txt_eventid" name="txt_groupid" value="0" />
+                            <input type="button" class="btn btn-success btn-sm update" name="update" id="update"
+                                value="Update"></input>
                             <button type="submit" class="btn btn-success btn-sm" name="add" id="add">Add</button>
                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
                                 Close
@@ -122,6 +123,13 @@ include('./../include/nav.php');
             $(".modal-title").text("Add Event");
             $("#update").hide();
             $("#add").show();
+        });
+        $(".editbtn").click(function() {
+            $("#news_form")[0].reset();
+            $("#newsModal").modal("show");
+            $(".modal-title").text("Edit Event");
+            $("#update").show();
+            $("#add").hide();
         });
 
         //add news
@@ -165,6 +173,71 @@ include('./../include/nav.php');
                 $("#add").removeAttr("disabled");
 
 
+            }
+        });
+
+           //update news
+        $(document).on("click", ".editbtn", function() {
+            var id = $(this).data("id");
+            $(txt_eventid).val(id);
+            $.ajax({
+                url: "./../../api/news.php",
+                type: "post",
+                data: {
+                    request: 2,
+                    event_id: id
+                },
+                dataType: "json",
+                success: function(dataResult) {
+                    if (dataResult.statusCode == 200) {
+                        $('#event_name').val(dataResult.data.event);
+                        $('#event_date').val(dataResult.data.date);
+                        $('#event_venue').val(dataResult.data.venue);
+                    } else {
+                        alert("Invalid ID");
+                    }
+                }
+
+            })
+        })
+
+        //save update
+        $("#update").click(function() {
+             var id = $("#txt_eventid").val();
+            var name = $("#event_name").val().trim();
+            var date = $("#event_date").val();
+            var venue = $("#event_venue").val().trim();
+
+            console.log(id,name,date,venue);
+            
+            if (name != "" && date != "" && venue != "") {
+                $.ajax({
+                    url: "./../../api/news.php",
+                    type: "post",
+                    data: {
+                        request: 3,
+                        event_id: id,
+                        event: name,
+                        date:date,
+                        venue:venue,
+                    },
+                    dataType: "json",
+                    success: function(dataResult) {
+                        console.log(dataResult);
+                        if (dataResult.statusCode == 200) {
+                            $("#success").show();
+                            $("#success").html('News updated!!').delay(3000).fadeOut(
+                            3000);
+                            location.reload();
+                        } else {
+                            $("#error").show();
+                            $("#error").html('Error!').delay(3000).fadeOut(3000);
+                        }
+
+                    },
+                });
+            } else {
+                alert("Please fill all fields.");
             }
         });
 

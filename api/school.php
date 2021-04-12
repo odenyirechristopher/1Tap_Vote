@@ -56,11 +56,59 @@ data-backdrop="static" data-target="#schoolModal" data-id='.$row['school_id'].' 
     }
 }
 
+// Fetch School details
+if($request == 2){
+   $id = 0;
+
+   if(isset($_POST['school_id'])){
+      $id = mysqli_escape_string($conn,$_POST['school_id']);
+   }
+
+   $record = mysqli_query($conn,"SELECT * FROM school WHERE school_id=".$id);
+
+   $dataResult = array();
+
+   if(mysqli_num_rows($record) > 0){
+      $row = mysqli_fetch_assoc($record);
+      $dataResult = array(
+         "school_name"=>$row['school_name'],
+      );
+
+      echo json_encode( array("statusCode" => 200,"data" => $dataResult) );
+      exit;
+   }else{
+      echo json_encode( array("statusCode" => 201) );
+      exit;
+   }
+}
+
 
 //update school
 if($request == 3){
+$id = 0;
 
+   if(isset($_POST['school_id'])){
+      $id = mysqli_escape_string($conn,$_POST['school_id']);
+   }
 
+   // Check id
+   $record = mysqli_query($conn,"SELECT school_id FROM school WHERE school_id=".$id);
+   if(mysqli_num_rows($record) > 0){
+ 
+      $name = mysqli_escape_string($conn,trim($_POST['school_name']));
+
+      if( $name != '' ){
+
+         mysqli_query($conn,"UPDATE school SET school_name='".$name."' WHERE school_id=".$id);
+
+         echo json_encode( array("statusCode" => 200,"message" => "Record updated.") );
+         exit;
+      }else{
+         echo json_encode( array("statusCode" => 201,"message" => "Please fill all fields.") );
+         exit;
+      }
+
+   }
 }
 //delete school
 if($request == 4){

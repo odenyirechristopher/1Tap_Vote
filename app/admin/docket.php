@@ -107,8 +107,9 @@ include('./../include/nav.php');
 
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success btn-sm" name="update"
-                                id="update">Update</button>
+                           <input type="hidden" id="txt_docketid" name="txt_groupid" value="0" />
+                            <input type="button" class="btn btn-success btn-sm update" name="update" id="update"
+                                value="Update"></input>
                             <button type="submit" class="btn btn-success btn-sm" name="add" id="add">Add</button>
                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
                                 Close
@@ -128,6 +129,13 @@ include('./../include/nav.php');
             $(".modal-title").text("Add docket");
             $("#update").hide();
             $("#add").show();
+        });
+        $(".editbtn").click(function() {
+            $("#docket_form")[0].reset();
+            $("#docketModal").modal("show");
+            $(".modal-title").text("Edit docket");
+            $("#update").show();
+            $("#add").hide();
         });
 
         //add docket
@@ -169,6 +177,66 @@ include('./../include/nav.php');
                 $("#add").removeAttr("disabled");
 
 
+            }
+        });
+
+         //update docket
+        $(document).on("click", ".editbtn", function() {
+            var id = $(this).data("id");
+            $(txt_docketid).val(id);
+            // console.log(id);
+            $.ajax({
+                url: "./../../api/docket.php",
+                type: "post",
+                data: {
+                    request: 2,
+                    docket_id: id
+                },
+                dataType: "json",
+                success: function(dataResult) {
+                    if (dataResult.statusCode == 200) {
+                        $('#global').val(dataResult.data.global);
+                        $('#docket_name').val(dataResult.data.docket_name);
+                    } else {
+                        alert("Invalid ID");
+                    }
+                }
+
+            })
+        })
+
+        //save update
+        $("#update").click(function() {
+             var id = $("#txt_docketid").val();
+            var name = $("#docket_name").val().trim();
+            var global = $("#global").val();
+            
+            if (name != "" && global!= "") {
+                $.ajax({
+                    url: "./../../api/docket.php",
+                    type: "post",
+                    data: {
+                        request: 3,
+                        docket_id: id,
+                        docket_name: name,
+                        is_global:global,
+                    },
+                    dataType: "json",
+                    success: function(dataResult) {
+                        if (dataResult.statusCode == 200) {
+                            $("#success").show();
+                            $("#success").html('Docket updated!!').delay(3000).fadeOut(
+                            3000);
+                            location.reload();
+                        } else {
+                            $("#error").show();
+                            $("#error").html('Error!').delay(3000).fadeOut(3000);
+                        }
+
+                    },
+                });
+            } else {
+                alert("Please fill all fields.");
             }
         });
 

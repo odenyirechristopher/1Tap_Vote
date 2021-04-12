@@ -36,7 +36,7 @@ include('./../include/nav.php');
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
                         </div>
                     </div>
-                    <form>
+                    <form method="post" action="" id="resetform">
                         <div class="form-group">
                             <label for="currentPwd">Current password</label>
                             <input type="password" class="form-control" id="currentPwd" name="currentPwd">
@@ -46,19 +46,59 @@ include('./../include/nav.php');
                             <label for="newPwd">New password</label>
                             <input type="password" class="form-control" id="newPwd" name="newPwd">
                         </div>
+                        <?php
+                             $id=$_SESSION['id'];
+                             echo '<input type="hidden" id="id" name="id" value="'.$id.'">';
+                             ?>
                         <div class="form-group">
                             <label for="verifyPwd">Verify password</label>
                             <input type="password" class="form-control" id="verifyPwd" name="verifyPwd">
                         </div>
-                        <button type="submit" class="btn btn-primary" id="save">Save changes</button>
+                        <button type="submit" class="btn btn-primary" id="save" name="save">Save changes</button>
                     </form>
 
                 </div>
             </div>
-            
+
 
         </main>
     </div>
+    <script>
+    $(document).ready(function() {
+        $("#resetform").submit(function(event) {
+            event.preventDefault();
+
+            //disable the submit button
+            $("#save").attr("disabled", true);
+            return true;
+
+            var form = $("#resetform");
+            form.submit(function(event) {
+                event.preventDefault();
+
+                var formData = form.serialize();
+                formData += '&' + $('#save').attr('name') + '=' + $('#save').attr('value');
+                console.log(formData);
+                $.ajax({
+                    type: "POST",
+                    url: "./../../api/voter-pwd.php",
+                    data: {request:1,formData},
+                    success: function(dataResult) {
+                        var dataResult = JSON.parse(dataResult);
+                        if (dataResult.statusCode == 200) {
+                            $("#success").show();
+                            $('#success').html('Password updated !').delay(3000)
+                                .fadeOut(3000);
+                            $("#save").attr("disabled", false);
+                            $("#resetform")[0].reset();
+                            return false;
+                        }
+                    }
+                });
+            })
+        });
+    });
+    </script>
     <script src="./../../assets/js/pwdChange.js"></script>
 </body>
 

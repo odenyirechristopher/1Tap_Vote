@@ -71,9 +71,63 @@ data-backdrop="static" data-target="#newsModal" data-id='.$row['event_id'].' dat
     }
 }
 
-// update news
-if($request == 3){
+// Fetch event details
+if($request == 2){
+   $id = 0;
 
+   if(isset($_POST['event_id'])){
+      $id = mysqli_escape_string($conn,$_POST['event_id']);
+   }
+
+   $record = mysqli_query($conn,"SELECT * FROM news WHERE event_id=".$id);
+
+   $dataResult = array();
+
+   if(mysqli_num_rows($record) > 0){
+      $row = mysqli_fetch_assoc($record);
+      $dataResult = array(
+         "event"=>$row['event'],
+         "venue"=>$row['venue'],
+         "date"=>$row['date'],
+      );
+
+      echo json_encode( array("statusCode" => 200,"data" => $dataResult) );
+      exit;
+   }else{
+      echo json_encode( array("statusCode" => 201) );
+      exit;
+   }
+}
+
+
+//update news
+if($request == 3){
+$id = 0;
+
+   if(isset($_POST['event_id'])){
+      $id = mysqli_escape_string($conn,$_POST['event_id']);
+   }
+
+   // Check id
+   $record = mysqli_query($conn,"SELECT event_id FROM news WHERE event_id=".$id);
+   if(mysqli_num_rows($record) > 0){
+ 
+      $name = mysqli_escape_string($conn,trim($_POST['event']));
+      $venue = mysqli_escape_string($conn,trim($_POST['venue']));
+      $date = mysqli_escape_string($conn,$_POST['date']);
+
+      if( $name != '' && $venue != '' && $date != '' ){
+
+         mysqli_query($conn,"UPDATE news SET event='".$name."', date='".$date."' ,venue='".$venue."' WHERE event_id=".$id);
+
+         echo json_encode( array("statusCode" => 200,"message" => "Record updated.") );
+         exit;
+      }else{
+         echo json_encode( array("statusCode" => 201,"message" => "Please fill all fields.") );
+         exit;
+      }
+
+   }
 }
 // delete news
 if($request == 4){

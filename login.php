@@ -49,7 +49,7 @@
             var email = $("#email").val().trim();
             var pass = $("#password").val().trim();
 
-            console.log(email,pass);
+            // console.log(email,pass);
             if (email!="" && pass!="") {
                 $.ajax({
                     url:"./api/account.php",
@@ -61,7 +61,7 @@
                     },
                     cache:false,
                     success:function(dataResult){
-                        console.log(success);
+                        console.log(dataResult);
                         var dataResult = JSON.parse(dataResult);
                         if (dataResult.statusCode == 200) {
                             location.href = "./app/voter/index.php"; 
