@@ -1,3 +1,6 @@
+<?php
+require("./database/config.php");
+?>
 <!DOCTYPE html>
 
 <head>
@@ -8,9 +11,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/custom.css">
+    <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
     <script src="./assets/js/jquery.js"></script>
     <script src="./assets/js/bootstrap.js"></script>
     <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/jquery-slim.min.js"></script>
 </head>
 
 <body>
@@ -25,52 +30,76 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./admin.php">Admin</a>
+                </li>
 
 
             </ul>
             <ul class="navbar-nav ml-auto nav-flex-icons">
-                <button class="btn btn-sm bg-warning" data-toggle='modal' data-target='#AccountModal'> Account</button>
+                
+                <a href="./login.php"><button class="btn btn-sm bg-warning"> Voters Account</button></a>
 
             </ul>
         </div>
     </nav>
     <main class="home_main container-fluid">
-        <div class="row">
-            <div class="col-md-8 content">
-                <p>Welcome to <span class="text-warning"><sup>1</sup><sub>Tap</sub>Vote &trade; </span>web
-                    application.It's a one time click vote.This is the best system for a comrade to chose the best
-                    candidate of their choice from the comfort of your seat.
-                </p>
-                <hr>
-                <h6 class="text-success">Requirements</h6>
-                <ol>
-                    <li>Must be a bonfide student</li>
-                </ol>
-                <hr>
-            </div>
-
-            <div class="col-md-4  content">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="text-center">Upcoming Activities</h4>
+        <section class="pt-5 pb-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <h3 class="mb-3">Latest News </h3>
                     </div>
-                    <div class="card-body">
-                        <ul style="list">
-                            <li>
-                                <span>Activity</span><span>Date</span>
-                            </li>
-                            <li>TEST</li>
-                            <li>TEST</li>
-                            <li>TEST</li>
-                        </ul>
+                    <div class="col-6 text-right">
+                        <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators2" role="button"
+                            data-slide="prev">
+                            <i class="fa fa-arrow-left"></i>
+                        </a>
+                        <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators2" role="button"
+                            data-slide="next">
+                            <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="col-12">
+                        <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <div class="row">
+                                        <?php
+                 $result = $conn->query("SELECT * FROM news WHERE date >= date(now())"); 
+
+                      if($result->num_rows > 0){  
+            while($row = $result->fetch_assoc()){ 
+                ?>
+
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card">
+                                                <img class="img-fluid" alt="100%x280" src="./uploads/event.jpeg">
+                                                <div class="card-body">
+                                                    <h4 class="card-title"><?php echo $row['event'];?></h4>
+                                                    <p class="card-text">Venue:<span
+                                                            class="text-danger"><?php echo $row['venue'];?></span></p>
+                                                    <p class="card-text">Date:<span class="badge badge-success">
+                                                            <?php echo $row['date'];?></span></p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <?php } }else{ ?>
+                                        <p class="text-red">No news</p>
+                                        <?php } 
+                    ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
-    <footer>
-        <p>Hello idiot</p>
-    </footer>
+        </section>
+
 
 </body>
 

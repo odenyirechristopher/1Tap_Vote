@@ -35,12 +35,19 @@ include('./../include/nav.php');
                             style="display:none;">Password do not match..
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
                         </div>
+                        <div class="alert alert-success alert-dismissible text-center" id="success"
+                            style="display:none;">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+                        </div>
+
+                        <div class="alert alert-danger alert-dismissible text-center" id="error" style="display:none;">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+                        </div>
                     </div>
                     <form method="post" action="" id="resetform">
                         <div class="form-group">
                             <label for="currentPwd">Current password</label>
                             <input type="password" class="form-control" id="currentPwd" name="currentPwd">
-                            <small><a href="#">Forgot your password?</a></small>
                         </div>
                         <div class="form-group">
                             <label for="newPwd">New password</label>
@@ -71,31 +78,37 @@ include('./../include/nav.php');
             //disable the submit button
             $("#save").attr("disabled", true);
             return true;
+        });
+        var form = $("#resetform");
+        form.submit(function(event) {
+            event.preventDefault();
 
-            var form = $("#resetform");
-            form.submit(function(event) {
-                event.preventDefault();
-
-                var formData = form.serialize();
-                formData += '&' + $('#save').attr('name') + '=' + $('#save').attr('value');
-                console.log(formData);
-                $.ajax({
-                    type: "POST",
-                    url: "./../../api/voter-pwd.php",
-                    data: {request:1,formData},
-                    success: function(dataResult) {
-                        var dataResult = JSON.parse(dataResult);
-                        if (dataResult.statusCode == 200) {
-                            $("#success").show();
-                            $('#success').html('Password updated !').delay(3000)
-                                .fadeOut(3000);
-                            $("#save").attr("disabled", false);
-                            $("#resetform")[0].reset();
-                            return false;
-                        }
+            var formData = form.serialize();
+            formData += '&' + $('#save').attr('name') + '=' + $('#save').attr('value');
+            console.log(formData);
+            $.ajax({
+                type: "POST",
+                url: "./../../api/voter-pwd.php",
+                data: formData,
+                success: function(dataResult) {
+                    var dataResult = JSON.parse(dataResult);
+                    if (dataResult.statusCode == 200) {
+                        $("#success").show();
+                        $('#success').html('Password updated !').delay(3000)
+                            .fadeOut(3000);
+                        $("#save").attr("disabled", false);
+                        $("#resetform")[0].reset();
+                        return false;
+                    } else if (data.statusCode == 201) {
+                        $("#error").show();
+                        $('#error').html('Old password not matching !').delay(3000).fadeOut(
+                            3000);
+                        $("#save").attr("disabled", false);
+                        $('#resetForm')[0].reset();
+                        return false;
                     }
-                });
-            })
+                }
+            });
         });
     });
     </script>

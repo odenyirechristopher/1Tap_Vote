@@ -127,6 +127,10 @@ button.btn.btn-warning.btn-block.vote-btn {
     width: 25%;
 }
 
+div#chart-container {
+    padding: 0 150px;
+}
+
 @media (max-width:767.98px) {
     .dash-main {
         padding-top: 140px;
@@ -163,7 +167,7 @@ button.btn.btn-warning.btn-block.vote-btn {
 }
 
 @media only screen and (max-width: 1200px) {
-    .candidate-card img {
-        width: 40%;
+    div#chart-container {
+        padding: 0 150px;
     }
 }

@@ -42,7 +42,7 @@ include('./../include/nav.php');
              $candidate = $conn->query("SELECT * FROM candidate WHERE voter_id = $id");
             if ($candidate->num_rows <= 0) {
                 echo ' <div class="card mt-2">
-                <form action="#" id="vieForm"  method="post" class="py-4">
+                <form action="./../../api/test.php" id="vieForm"  method="post" enctype="multipart/form-data" class="py-4">
 
                     <div class="form-row mx-4">
                         <div class="col-lg-10">
@@ -68,7 +68,8 @@ include('./../include/nav.php');
 
                                 <div class="form-group col-md-6">
                                     <label for="userProfile">Avatar</label>
-                                    <input type="file" class="form-control" id="photo" name="photo">
+                                    <input id="picture" name="picture" class="form-control" accept="image/*" type="file" class="file"
+                        data-show-upload="false" data-show-caption="true" multiple>
                                 </div>
 
                                 <div class="form-group col-md-6">
@@ -137,51 +138,6 @@ include('./../include/nav.php');
 
             }
         });
-    });
-
-    //vie now
-    $("#vieForm").on('submit', function() {
-        var voter = $('#id').val();
-        var docket = $('#docket').val();
-        // console.log(voter,docket);
-
-        if (voter != "" && docket != "") {
-            $.ajax({
-                type: 'post',
-                url: "./../../api/test.php",
-                data: new FormData(this),
-                contentType: false,
-                cache: false,
-                processData: false,
-                beforeSend: function() {
-                    $('.submitBtn').attr("disabled", "disabled");
-                    $('#vieForm').css("opacity", "5")
-                },
-                success: function(dataResult) {
-                    var dataResult = JSON.parse(dataResult);
-                    console.log(dataResult);
-
-                    if (dataResult.statusCode == 200) {
-                        $('#vieForm')[0].reset();
-                        $('#vieForm').css("opacity", "");
-                        $('.submitBtn').removeAttr("disabled");
-                        $("#success").show();
-                        $('#success').html('Vied successfully').delay(
-                            3000).fadeOut(3000);
-                    } else {
-                        (dataResult.statusCode == 201)
-                        console.log("failed");
-                        $("#error").show();
-                        $('#error').html('Something happened!').delay(3000).fadeOut(
-                            3000);
-                    }
-                }
-            });
-
-        } else {
-            $("#error").show();
-            $('#error').html('Fill all details !').delay(3000).fadeOut(3000);
-        }
     });
     </script>
     <script src="./../../assets/js/popper.min.js"></script>

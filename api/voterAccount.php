@@ -7,14 +7,9 @@ $database = '1tapvote';
 //database connection
 $conn = new mysqli($host,$user,$password,$database);
 
-$request = 0;
-if(isset($_POST['request'])){
-    $request = $_POST['request'];
-}
-session_start();
-	//voter login
-if($request==2){
-     if($stmt = $conn->prepare("SELECT voter_id,firstname,lastname,surname,password,gender,photo,course_id FROM Voter WHERE email = ?")){
+if(!empty($_POST['email']) && !empty($_POST['password']))
+{
+if($stmt = $conn->prepare("SELECT voter_id,firstname,lastname,surname,password,gender,photo,course_id FROM Voter WHERE email = ?")){
 		$stmt->bind_param('s',$_POST['email']);
 		$stmt->execute();
 	    $stmt->bind_result($voter_id,$firstname,$lastname,$surname,$password,$gender,$photo,$course_id);
@@ -30,14 +25,16 @@ if($request==2){
 			$_SESSION['photo'] = $photo;
 			$_SESSION['email']=$_POST['email'];
 			$_SESSION['id'] = $voter_id;
-			echo json_encode(array("statusCode"=>200));
+			header('Location: ./app/voter/index.php');
+			exit;
 		}
          else{
-			echo json_encode(array("statusCode"=>201));
-		 }		
+			$error_message = "Incorrect Email Address or Password.";
+			// exit;
+		 }
+		 		
 		}	
 		$stmt->close();
+}
 
-	}
-
- ?>
+?>

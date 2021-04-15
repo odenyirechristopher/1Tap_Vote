@@ -31,7 +31,7 @@ CREATE TABLE Voter
   surname VARCHAR(100) NOT NULL,
   gender VARCHAR(50) NOT NULL,
   email VARCHAR(100) NOT NULL,
-  password VARCHAR(100) DEFAULT NULL,
+  password VARCHAR(100) NOT NULL DEFAULT '$2y$10$JHeA1NivFGas5/bn4yQ0aOZKW87GQnjbIlow4b03cElfZw8uS2nKy',
   photo VARCHAR(100) DEFAULT NULL,
   exp_date DATE DEFAULT NULL,
   reset_link_token VARCHAR(200) DEFAULT NULL,
@@ -51,11 +51,11 @@ CREATE TABLE docket
 
 CREATE TABLE admin
 (
-  admin_id INT NOT NULL,
+  admin_id INT NOT NULL AUTO_INCREMENT,
   firstname VARCHAR(100) NOT NULL,
   lastname VARCHAR(100) NOT NULL,
   email VARCHAR(100) NOT NULL,
-  password VARCHAR(100) NOT NULL,
+  password VARCHAR(100) NOT NULL DEFAULT '$2y$10$JHeA1NivFGas5/bn4yQ0aOZKW87GQnjbIlow4b03cElfZw8uS2nKy',
   is_active enum('1','0') DEFAULT '1',
   created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   photo VARCHAR(100) DEFAULT NULL,
@@ -82,6 +82,6 @@ CREATE TABLE vote
   voter_id INT NOT NULL,
   candidate_id INT NOT NULL,
   PRIMARY KEY (vote_id),
-  FOREIGN KEY (voter_id) REFERENCES Voter(voter_id),
-  FOREIGN KEY (candidate_id) REFERENCES candidate(candidate_id)
+  FOREIGN KEY (voter_id) REFERENCES Voter(voter_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (candidate_id) REFERENCES candidate(candidate_id) ON DELETE CASCADE ON UPDATE CASCADE
 );

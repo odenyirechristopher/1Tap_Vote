@@ -1,5 +1,6 @@
 <?php
 include ("./../../database/config.php");
+include('./../include/admin_check.php');
 include ("./../../api/course.php");
 ?>
 <!DOCTYPE html>

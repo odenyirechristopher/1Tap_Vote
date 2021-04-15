@@ -12,10 +12,9 @@ if(isset($_POST['request'])){
     $request = $_POST['request'];
 }
 
-// updating password
-if($request == 1){
-    
-    $voterid=mysqli_real_escape_string($conn,$_POST['id']);
+
+if (count($_POST) > 0) {
+    $voterid=$_POST['id'];
     $passwordhash=mysqli_real_escape_string($conn,$_POST['newPwd']);
 
     $result = mysqli_query($conn, "SELECT * FROM `Voter` WHERE voter_id='$voterid'");
@@ -27,7 +26,9 @@ if($request == 1){
         mysqli_query($conn, "UPDATE `Voter` SET `password`='$new_pw' WHERE voter_id='$voterid'");
         echo json_encode(array("statusCode"=>200));
     } else{
-       echo json_encode(array("statusCode"=>201));
-       
+       echo json_encode(array("statusCode"=>201));  
     }
 }
+
+mysqli_close($conn);
+?>

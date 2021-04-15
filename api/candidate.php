@@ -35,7 +35,7 @@ $candidate="SELECT c.candidate_id,c.status,v.firstname,v.lastname,v.surname,v.ge
 
            echo '<tr>
 <td>'.$no.'</td>
-<td><img src="./../uploads/'.$row['photo'].'" class="img-thumbnail photo"  alt="" heigh="50px" width="50px"></td>
+<td><img src="./../../uploads/'.$row['photo'].'" class="photo"  alt="" height="30px" width="50px"></td>
 <td>'.$row['surname'].'</td>
 <td>'.$row['firstname'].'</td>
 <td>'.$row['lastname'].'</td>

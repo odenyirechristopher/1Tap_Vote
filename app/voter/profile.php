@@ -37,43 +37,26 @@ include('./../include/nav.php');
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="firstName">First Name</label>
-                                    <input type="text" class="form-control" id="firstName" readonly>
+                                    <input type="text" class="form-control" id="firstName" value="<?php echo ''.$_SESSION['fname'].'';?>" readonly>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="lastName">Last Name</label>
-                                    <input type="text" class="form-control" id="lastName" readonly>
+                                    <input type="text" class="form-control" id="lastName" value="<?php echo ''.$_SESSION['lname'].'';?>" readonly>
                                 </div>
 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12">
                                     <label for="emailAddress">Email</label>
-                                    <input type="email" class="form-control" id="emailAddress" readonly>
+                                    <input type="email" class="form-control" id="emailAddress" value="<?php echo ''.$_SESSION['email'].'';?>" readonly>
                                 </div>
-
-                                <div class="form-group col-md-6">
-                                    <label for="userProfile">Avatar</label>
-                                    <input type="file" class="form-control" id="userProfile" required>
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label for="emailAddress">Course</label>
-                                    <input type="email" class="form-control" id="emailAddress" readonly>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="emailAddress">Gender</label>
-                                    <input type="email" class="form-control" id="emailAddress" readonly>
-                                </div>
-
                             </div>
                         </div>
                         <div class="col-lg-4">
 
                             <div class="edit-user-details__avatar m-auto">
-                                <img src="./../uploads/avatar.png" class="btn btn-sm btn-white d-table mx-auto mt-4"
+                                <img src="./../../uploads/<?php echo ''.$_SESSION['photo'].'';?>" class="btn btn-sm btn-white d-table mx-auto mt-4"
                                     alt="User Avatar">
                             </div>
-                            <button type="submit" class="btn btn-sm btn-white d-table mx-auto mt-4">
-                                Update Profile</button>
-                        </div>
+                           
                     </div>
                 </form>
             </div>

@@ -1,5 +1,6 @@
 <?php
 include ("./../../database/config.php");
+include('./../include/admin_check.php');
 ?>
 <!DOCTYPE html>
 
@@ -30,13 +31,21 @@ include('./../include/nav.php');
 
             <div class="card mt-2">
                 <div class="card-header">
-                    Hello,Steve
+                    Hello,<?php echo ''.$_SESSION['fname'].'!';?>
                 </div>
                 <div class="card-body">
-                    <h4 class="text-center">voting session settings</h4>
+                    <p class="text-danger text-center">Turn out percentage</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0"
+                            aria-valuemax="100">
+                            <?php
+                            $result = mysqli_query($conn,"SELECT ")
+                            ?>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
+
 
         </main>
     </div>
