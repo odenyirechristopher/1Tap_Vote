@@ -10,38 +10,11 @@
                     <li class="nav-item active">
                         <a class="nav-link customlink" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link nav-link-collapse" href="#" id="hasSubItems" data-toggle="collapse"
-                            data-target="#collapseSubItems2" aria-controls="collapseSubItems2"
-                            aria-expanded="false">School</a>
-                        <ul class="nav-second-level collapse" id="collapseSubItems2" data-parent="#navAccordion">
-                            <li class="nav-item">
-                                <a class="nav-link" href="./../admin/school.php">
-                                    <span class="nav-link-text">Schools</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./../admin/course.php">
-                                    <span class="nav-link-text">Courses</span>
-                                </a>
-                            </li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./../voter/vie.php">Vie</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./../admin/voters.php">Voters</a>
-                    </li>
-                   
-                    <li class="nav-item">
-                        <a class="nav-link" href="./../admin/docket.php">Dockets</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./../admin/candidates.php">Candidates</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./../admin/reports.php">Reports</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./../admin/news.php">News</a>
+                        <a class="nav-link" href="./../voter/vote.php">Vote</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav-link-collapse" href="#" id="hasSubItems" data-toggle="collapse"
@@ -49,19 +22,19 @@
                             aria-expanded="false">Settings</a>
                         <ul class="nav-second-level collapse" id="collapseSubItems4" data-parent="#navAccordion">
                             <li class="nav-item">
-                                <a class="nav-link" href="./../admin/password.php">
+                                <a class="nav-link" href="./../voter/password.php">
                                     <span class="nav-link-text">Password</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="./../admin/profile.php">
+                                <a class="nav-link" href="./../voter/profile.php">
                                     <span class="nav-link-text">Profile</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./../admin/logout.php">Logout</a>
+                        <a class="nav-link" href="./../voter/logout.php">Logout</a>
                     </li>
                 </ul>
                 <form class="form-inline ml-auto mt-2 mt-md-0">

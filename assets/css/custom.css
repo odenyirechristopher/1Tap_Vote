@@ -104,13 +104,6 @@ div#chart-container {
     }
 }
 
-/* hiding some readonly vie input on small screens */
-
-/* @media only screen and (max-width: 768px) {
-    .gender, .course {
-        display: none;
-    }
-} */
 
 @media only screen and (max-width: 768px) {
     button.btn.btn-warning.btn-block.vote-btn {
