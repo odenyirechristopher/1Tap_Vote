@@ -1,8 +1,5 @@
  <div class="col-md-2 bg-light d-none d-md-block sidebar">
-     <div class="aside_close-icon">
-         <strong>&times;</strong>
-     </div>
-
+    
      <div class="left-sidebar">
          <ul class="nav flex-column sidebar-nav">
              <li class="nav-item">

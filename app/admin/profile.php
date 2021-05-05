@@ -9,19 +9,12 @@ include('./../include/admin_check.php');
 <?php
 include('./../include/head.php');
 ?>
-<?php
-include('./../include/nav.php');
-?>
 
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <!-- Sidear -->
-            <?php
-             include('./../include/sidebar_admin.php')
-           ?>
-            <!-- Sidebar -->
-        </div>
+        <?php
+             include('./../include/adminnav.php');         
+?>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 dash-main">
             <!-- cards -->
             <?php
@@ -36,11 +29,11 @@ include('./../include/nav.php');
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="firstName">First Name</label>
-                                    <input type="text" class="form-control" id="firstName" >
+                                    <input type="text" class="form-control" id="firstName">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="lastName">Last Name</label>
-                                    <input type="text" class="form-control" id="lastName" >
+                                    <input type="text" class="form-control" id="lastName">
                                 </div>
 
                                 <div class="form-group col-md-6">
@@ -55,9 +48,10 @@ include('./../include/nav.php');
                             </div>
                         </div>
                         <div class="col-lg-4">
-                            
+
                             <div class="edit-user-details__avatar m-auto">
-                                <img src="./../uploads/avatar.png" class="btn btn-sm btn-white d-table mx-auto mt-4" alt="User Avatar">
+                                <img src="./../uploads/avatar.png" class="btn btn-sm btn-white d-table mx-auto mt-4"
+                                    alt="User Avatar">
                             </div>
                             <button type="submit" class="btn btn-sm btn-white d-table mx-auto mt-4">
                                 Update Profile</button>
@@ -69,6 +63,7 @@ include('./../include/nav.php');
         </main>
     </div>
     <script src="./../../assets/js/popper.min.js"></script>
+    <script src="./../../assets/js/navigation.js"></script>
 </body>
 
 </html>

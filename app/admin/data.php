@@ -8,9 +8,9 @@ $database = '1tapvote';
 //database connection
 $conn = new mysqli($host,$user,$password,$database);
 
-// $docket = $_GET['id'];
+$docket = $_GET['id'];
 // var_dump($docket);
-$docket = 8;
+// $docket = 8;
 $sqlQuery = "SELECT count('vo.vote_id') as votetally,v.firstname
 FROM vote vo 
 JOIN candidate c ON vo.candidate_id = c.candidate_id 

@@ -9,19 +9,12 @@ include('./../include/admin_check.php');
 <?php
 include('./../include/head.php');
 ?>
-<?php
-include('./../include/nav.php');
-?>
 
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <!-- Sidear -->
-            <?php
-             include('./../include/sidebar_admin.php')
-           ?>
-            <!-- Sidebar -->
-        </div>
+        <?php
+             include('./../include/adminnav.php');         
+?>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 dash-main">
             <!-- cards -->
             <?php
@@ -50,6 +43,7 @@ include('./../include/nav.php');
         </main>
     </div>
     <script src="./../../assets/js/popper.min.js"></script>
+    <script src="./../../assets/js/navigation.js"></script>
 </body>
 
 </html>

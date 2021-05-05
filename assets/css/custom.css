@@ -44,27 +44,8 @@ card-body>ul {
     opacity: 0.2;
     border-radius: 2px;
 }
+/* navigations */
 
-.sidebar {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    top: 0;
-    z-index: 100;
-    padding: 70px 0 0 10px;
-    border-right: 1px solid #d3d3d3;
-}
-
-.left-sidebar {
-    position: sticky;
-    top: 0;
-    height: calc(100vh - 70px)
-}
-
-.sidebar-nav li .nav-link {
-    color: #333;
-    font-weight: 500;
-}
 
 .dash-main {
     padding-top: 90px;
@@ -77,26 +58,6 @@ img.btn.btn-sm.btn-white.d-table.mx-auto.mt-4 {
     border: 1px solid yellow;
 }
 
-.menu-icon {
-    position: fixed;
-    display: flex;
-    top: 2px;
-    left: 54px;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-    cursor: pointer;
-    padding: 12px;
-    color: black;
-}
-
-.aside_close-icon {
-    position: absolute;
-    visibility: visible;
-    top: 20px;
-    right: 20px;
-    cursor: pointer;
-}
 
 .form-check {
     position: relative;

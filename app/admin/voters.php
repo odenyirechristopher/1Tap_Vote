@@ -10,19 +10,12 @@ include("./../../api/voter.php");
 <?php
 include('./../include/head.php');
 ?>
-<?php
-include('./../include/nav.php');
-?>
 
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <!-- Sidear -->
-            <?php
-             include('./../include/sidebar_admin.php')
-           ?>
-            <!-- Sidebar -->
-        </div>
+        <?php
+             include('./../include/adminnav.php');         
+?>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 dash-main">
             <!-- cards -->
             <?php
@@ -304,7 +297,7 @@ include('./../include/nav.php');
                     type: "post",
                     data: {
                         request: 3,
-                        voter_id:id,
+                        voter_id: id,
                         firstname: first,
                         lastname: last,
                         surname: sur,
@@ -361,6 +354,7 @@ include('./../include/nav.php');
     });
     </script>
     <script src="./../../assets/js/popper.min.js"></script>
+    <script src="./../../assets/js/navigation.js"></script>
 </body>
 
 </html>

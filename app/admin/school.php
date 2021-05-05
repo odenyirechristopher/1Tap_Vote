@@ -6,19 +6,12 @@ include ("./../../api/school.php");
 <?php
 include('./../include/head.php');
 ?>
-<?php
-include('./../include/nav.php');
-?>
 
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <!-- Sidear -->
-            <?php
-             include('./../include/sidebar_admin.php')
-           ?>
-            <!-- Sidebar -->
-        </div>
+        <?php
+             include('./../include/adminnav.php');         
+?>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 dash-main">
             <!-- cards -->
             <?php
@@ -179,9 +172,9 @@ include('./../include/nav.php');
 
         //save update
         $("#update").click(function() {
-             var id = $("#txt_groupid").val();
+            var id = $("#txt_groupid").val();
             var name = $("#school_name").val().trim();
-            
+
             if (name != "") {
                 $.ajax({
                     url: "./../../api/school.php",
@@ -196,7 +189,7 @@ include('./../include/nav.php');
                         if (dataResult.statusCode == 200) {
                             $("#success").show();
                             $("#success").html('School updated!!').delay(3000).fadeOut(
-                            3000);
+                                3000);
                             location.reload();
                         } else {
                             $("#error").show();
@@ -240,6 +233,7 @@ include('./../include/nav.php');
     });
     </script>
     <script src="./../../assets/js/popper.min.js"></script>
+    <script src="./../../assets/js/navigation.js"></script>
 </body>
 
 </html>

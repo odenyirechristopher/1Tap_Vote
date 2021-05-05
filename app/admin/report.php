@@ -9,25 +9,18 @@ include('./../include/admin_check.php');
 <?php
 include('./../include/head.php');
 ?>
-<?php
-include('./../include/nav.php');
-?>
 
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <!-- Sidear -->
-            <?php
-             include('./../include/sidebar_admin.php')
-           ?>
-            <!-- Sidebar -->
-        </div>
+        <?php
+             include('./../include/adminnav.php');         
+?>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 dash-main">
             <!-- cards -->
             <?php
              include('./../include/card_admin.php')
             ?>
-           <div class="container mt-3">
+            <div class="container mt-3">
                 <ul class="nav nav-pills justify-content-center">
                     <?php
                       //get dockets
@@ -43,7 +36,7 @@ include('./../include/nav.php');
                     <?php } }else{ ?>
                     <li class="nav-item">
                         <p class="text-red">No docket found....</p>
-                        
+
                     </li>
                     <?php } 
                     ?>
@@ -52,32 +45,30 @@ include('./../include/nav.php');
 
         </main>
     </div>
-   <div class="container">
-       <?php
+    <div class="container">
+        <?php
        $docket = $_GET['id'];
        echo $docket;
        ?>
-   <div id="chart-container">
-        <canvas id="graphCanvas"></canvas>
+        <div id="chart-container">
+            <canvas id="graphCanvas"></canvas>
+        </div>
     </div>
-   </div>
 
     <script>
-        $(document).ready(function () {
-            showGraph();
-        });
+    $(document).ready(function() {
+        showGraph();
+    });
 
 
-        function showGraph()
+    function showGraph() {
         {
-            {
-                // var link = "http://localhost/1Tap_Vote/api/data.php";
-                // console.log(link)
-                $.post("data.php",
-                function (data)
-                {
+            // var link = "http://localhost/1Tap_Vote/api/data.php";
+            // console.log(link)
+            $.post("data.php",
+                function(data) {
                     console.log(data);
-                     var name = [];
+                    var name = [];
                     var votetally = [];
 
                     for (var i in data) {
@@ -87,16 +78,14 @@ include('./../include/nav.php');
 
                     var chartdata = {
                         labels: name,
-                        datasets: [
-                            {
-                                label: 'Candidate votes',
-                                backgroundColor: '#49e2ff',
-                                borderColor: '#46d5f1',
-                                hoverBackgroundColor: '#CCCCCC',
-                                hoverBorderColor: '#666666',
-                                data: votetally
-                            }
-                        ]
+                        datasets: [{
+                            label: 'Candidate votes',
+                            backgroundColor: '#49e2ff',
+                            borderColor: '#46d5f1',
+                            hoverBackgroundColor: '#CCCCCC',
+                            hoverBorderColor: '#666666',
+                            data: votetally
+                        }]
                     };
 
                     var graphTarget = $("#graphCanvas");
@@ -106,10 +95,11 @@ include('./../include/nav.php');
                         data: chartdata
                     });
                 });
-            }
         }
-        </script>
+    }
+    </script>
     <script src="./../../assets/js/popper.min.js"></script>
+    <script src="./../../assets/js/navigation.js"></script>
 </body>
 
 </html>
